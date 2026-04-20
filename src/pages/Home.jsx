@@ -419,16 +419,17 @@ export default function Home() {
         </div>
         <div className="col-md-6 text-center">
           {/* Contenedor del mapa con diseño responsivo */}
-          <div className="map-container" style={{ 
-            width: "100%", 
-            overflow: "hidden", 
+          <div className="map-container" style={{
+            width: "100%",
+            overflow: "hidden",
             borderRadius: "12px",
             position: "relative",
-            paddingBottom: "56.25%" // Relación de aspecto 16:9
+            paddingBottom: "56.25%",
+            height: 0
           }}>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d295.41983789832904!2d-75.81253278392496!3d4.992767080948355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e47852c68f4ff7b%3A0x14670897885c7eee!2sPanaderia%20La%20Chiquita!5e0!3m2!1ses-419!2sco!4v1757275659145!5m2!1ses-419!2sco"
-              style={{ 
+              style={{
                 position: "absolute",
                 top: 0,
                 left: 0,

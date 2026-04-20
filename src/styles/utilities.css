@@ -50,16 +50,16 @@
 @media (max-width: 768px) {
   /* Welcome Section */
   .welcome-section {
-    padding: 40px 15px;
-    min-height: 400px;
+    padding: clamp(25px, 5vw, 40px) 15px;
+    min-height: clamp(300px, 45vh, 400px);
   }
-  
+
   .welcome-title {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
   }
-  
+
   .welcome-subtitle {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
   }
   
   .welcome-video {
@@ -78,7 +78,7 @@
   }
   
   .tortas-general-title {
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 4vw, 1.4rem);
     padding: 0 15px;
   }
   
@@ -104,15 +104,15 @@
   }
   
   .visitanos-main-title {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
   }
-  
+
   .visitanos-subtitle {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
   }
-  
+
   .section-title {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 5.5vw, 2rem);
   }
   
   .info-card {
@@ -154,12 +154,12 @@
   }
   
   .location-title {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 5.5vw, 2rem);
   }
-  
+
   .location-text,
   .location-address {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
   }
   
   .map-container iframe {
@@ -170,15 +170,15 @@
 @media (max-width: 576px) {
   /* Welcome Section */
   .welcome-section {
-    min-height: 350px;
+    min-height: clamp(280px, 40vh, 350px);
   }
-  
+
   .welcome-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
   }
-  
+
   .welcome-subtitle {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
     margin-bottom: 2rem;
   }
   
@@ -228,11 +228,11 @@
   
   /* Visítanos */
   .visitanos-main-title {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 5vw, 2rem);
   }
-  
+
   .section-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
   }
   
   .contact-info-item {
@@ -258,7 +258,7 @@
   }
   
   .service-content h3 {
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 4vw, 1.4rem);
   }
   
   .direction-card {
@@ -287,7 +287,7 @@
   }
   
   .location-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
   }
   
   .map-container iframe {

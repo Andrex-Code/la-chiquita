@@ -60,7 +60,7 @@ const TortasCarousel = () => {
               <div className="torta-card">
                 <div className="image-container" style={{
                   width: '100%',
-                  height: '350px',
+                  height: 'clamp(250px, 60vw, 350px)',
                   background: 'linear-gradient(135deg, #faf7e7 0%, #e9b274 100%)',
                   display: 'flex',
                   justifyContent: 'center',
