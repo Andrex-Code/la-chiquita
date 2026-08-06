@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import '../styles/admin-login.css';
 
 function sanitizePasswordInput(value) {
-  return value
+  return String(value)
     .replace(/[\u200B-\u200D\u2060\uFEFF]/g, '')
     .replace(/\u00A0/g, ' ');
 }
@@ -12,10 +13,13 @@ export default function AdminLogin({ username, password, message, onUsername, on
 
   return (
     <main className="admin-login-shell">
-      <form className="admin-login-card" onSubmit={onSubmit} noValidate>
+      <form className="admin-login-card" onSubmit={onSubmit}>
         <div className="admin-login-brand">
           <div className="admin-login-logo">LC</div>
-          <div><h1>La Chiquita</h1><p>Administra tu página sin complicaciones</p></div>
+          <div>
+            <h1>La Chiquita</h1>
+            <p>Administra tu página sin complicaciones</p>
+          </div>
         </div>
 
         <div className="admin-form-stack">
@@ -23,6 +27,7 @@ export default function AdminLogin({ username, password, message, onUsername, on
             <label htmlFor="admin-username">Usuario</label>
             <input
               id="admin-username"
+              name="username"
               className="admin-input"
               value={username}
               onChange={onUsername}
@@ -41,23 +46,16 @@ export default function AdminLogin({ username, password, message, onUsername, on
             <div className="admin-password-field">
               <input
                 id="admin-password"
-                className="admin-input"
+                name="password"
+                className="admin-input admin-password-input"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(event) => onPassword(sanitizePasswordInput(event.target.value))}
-                onBeforeInput={(event) => {
-                  if (typeof event.data === 'string' && /[\u200B-\u200D\u2060\uFEFF]/.test(event.data)) {
-                    event.preventDefault();
-                  }
-                }}
-                onPaste={(event) => {
-                  event.preventDefault();
-                  onPassword(sanitizePasswordInput(event.clipboardData.getData('text')));
-                }}
                 autoComplete="current-password"
                 autoCapitalize="none"
                 autoCorrect="off"
                 spellCheck={false}
+                inputMode="text"
                 enterKeyHint="go"
                 required
               />
@@ -69,12 +67,17 @@ export default function AdminLogin({ username, password, message, onUsername, on
                 aria-pressed={showPassword}
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                <span>{showPassword ? 'Ocultar' : 'Ver'}</span>
               </button>
             </div>
-            <small className="admin-password-hint">Usa el botón del ojo para comprobar cada carácter.</small>
+            <small className="admin-password-hint">
+              Puedes mostrarla para comprobar que el teclado escribió cada carácter correctamente.
+            </small>
           </div>
 
-          <button className="admin-btn primary admin-btn-block" type="submit">Entrar al panel</button>
+          <button className="admin-btn primary admin-btn-block" type="submit">
+            Entrar al panel
+          </button>
           {message && <p className="admin-help" role="status" aria-live="polite">{message}</p>}
         </div>
       </form>
