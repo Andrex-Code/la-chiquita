@@ -10,6 +10,7 @@ import Visitanos from "./pages/Visitanos";
 import Admin from "./pages/Admin";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import ScrollRestoration from "./components/ScrollRestoration";
+import SiteContentBridge from "./components/SiteContentBridge";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import { useEffect } from "react";
@@ -82,6 +83,7 @@ function App() {
     <>
       <ScrollRestoration />
       <NavbarCloser />
+      <SiteContentBridge />
       {!isAdmin && <Navbar />}
       <AnimatedRoutes />
       {!isAdmin && <ScrollToTopButton />}
