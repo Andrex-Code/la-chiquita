@@ -5,6 +5,7 @@ import {
   RefreshCcw, Save, Search, Settings, Sparkles, Tag, Trash2, Upload, X,
 } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
+import AdminLogin from '../components/AdminLogin';
 import { supabase, usernameToEmail } from '../lib/supabase';
 import '../styles/admin.css';
 
@@ -54,23 +55,10 @@ function formatMoney(value) {
   return `$${Number(value).toLocaleString('es-CO')}`;
 }
 
-function Login({ username, password, message, onUsername, onPassword, onSubmit }) {
-  return (
-    <main className="admin-login-shell">
-      <form className="admin-login-card" onSubmit={onSubmit}>
-        <div className="admin-login-brand">
-          <div className="admin-login-logo">LC</div>
-          <div><h1>La Chiquita</h1><p>Administra tu página sin complicaciones</p></div>
-        </div>
-        <div className="admin-form-stack">
-          <div className="admin-field"><label>Usuario</label><input className="admin-input" value={username} onChange={onUsername} autoComplete="username" required /></div>
-          <div className="admin-field"><label>Contraseña</label><input className="admin-input" type="password" value={password} onChange={onPassword} autoComplete="current-password" required /></div>
-          <button className="admin-btn primary admin-btn-block" type="submit">Entrar al panel</button>
-          {message && <p className="admin-help">{message}</p>}
-        </div>
-      </form>
-    </main>
-  );
+function sanitizePassword(value) {
+  return value
+    .replace(/[\u200B-\u200D\u2060\uFEFF]/g, '')
+    .replace(/\u00A0/g, ' ');
 }
 
 function ProductEditor({ open, product, categories, editing, saving, uploading, onChange, onUpload, onClose, onSave, onDelete }) {
@@ -196,7 +184,8 @@ export default function Admin() {
   async function handleLogin(event) {
     event.preventDefault();
     setMessage('Ingresando...');
-    const { error } = await supabase.auth.signInWithPassword({ email: usernameToEmail(username), password });
+    const cleanPassword = sanitizePassword(password);
+    const { error } = await supabase.auth.signInWithPassword({ email: usernameToEmail(username), password: cleanPassword });
     if (error) setMessage('Usuario o contraseña incorrectos.'); else { setMessage(''); setPassword(''); }
   }
 
@@ -305,7 +294,7 @@ export default function Admin() {
   async function signOut() { await supabase.auth.signOut({ scope: 'local' }); }
 
   if (loading && !session) return <main className="admin-login-shell">Cargando...</main>;
-  if (!session) return <Login username={username} password={password} message={message} onUsername={(e) => setUsername(e.target.value)} onPassword={(e) => setPassword(e.target.value)} onSubmit={handleLogin} />;
+  if (!session) return <AdminLogin username={username} password={password} message={message} onUsername={(e) => setUsername(e.target.value)} onPassword={(value) => setPassword(value)} onSubmit={handleLogin} />;
 
   return (
     <div className="admin-app">
