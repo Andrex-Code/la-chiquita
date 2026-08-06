@@ -7,104 +7,108 @@
   font-display: swap;
 }
 
+:root {
+  --site-primary: #6f3d24;
+  --site-secondary: #d69b5b;
+  --site-background: #faf7e7;
+  --site-surface: #fffaf4;
+  --site-text: #321808;
+  --site-radius: 18px;
+}
+
 html, body {
   overflow-x: hidden;
   max-width: 100%;
 }
 
 body {
-  background-color: #faf7e7;
-  color: #321808;
+  background-color: var(--site-background);
+  color: var(--site-text);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color .2s ease, color .2s ease;
 }
 
-img, video, iframe {
-  max-width: 100%;
-}
+img, video, iframe { max-width: 100%; }
 
-/* Navbar */
-.navbar {
-  background-color: #321808 !important;
-}
-
-.navbar-brand,
-.nav-link {
-  color: #faf7e7 !important;
-}
-
+.navbar { background-color: var(--site-primary) !important; }
+.navbar-brand, .nav-link { color: #faf7e7 !important; }
 .navbar-brand-title {
   font-family: 'Moonglow Std Extended', sans-serif;
   color: #faf7e7;
   font-size: clamp(1rem, 3.5vw, 1.5rem);
   font-weight: bold;
-  letter-spacing: 0.5px;
+  letter-spacing: .5px;
 }
-
-@media (max-width: 360px) {
-  .navbar-brand-title img {
-    width: 44px !important;
-    height: 44px !important;
-  }
-}
-
-.nav-link.active {
-  color: #e9b274 !important;
-}
-
-.nav-link:hover {
-  color: #e9b274 !important;
-}
-
-.navbar-toggler {
-  border-color: #faf7e7;
-}
-
+.nav-link.active, .nav-link:hover { color: var(--site-secondary) !important; }
+.navbar-toggler { border-color: #faf7e7; }
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(250, 247, 231, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* Botones */
 .btn-primary {
-  background-color: #af6a18;
-  border-color: #af6a18;
+  background-color: var(--site-primary);
+  border-color: var(--site-primary);
 }
-
 .btn-primary:hover {
-  background-color: #e9b274;
-  border-color: #e9b274;
-  color: #321808;
+  background-color: var(--site-secondary);
+  border-color: var(--site-secondary);
+  color: var(--site-text);
 }
 
-/* Utilidades de scroll */
-.category-title {
-  scroll-margin-top: 80px;
+.card, .torta-card, .welcome-section, .about-image {
+  border-radius: var(--site-radius);
 }
 
-.category-scroll {
-  scroll-margin-top: 100px;
+.site-whatsapp-button {
+  background-color: #25d366;
+  color: white;
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.22);
+  transition: transform .2s ease, box-shadow .2s ease;
+  text-decoration: none;
+  animation: whatsappPulse 2.2s infinite;
+}
+.site-whatsapp-button:hover, .site-whatsapp-button:focus-visible {
+  color: white;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 9px 24px rgba(0,0,0,.28);
 }
 
-.smooth-scroll {
-  scroll-behavior: smooth;
+.whatsapp-btn {
+  background-color: #25d366 !important;
+  color: white !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  padding: 14px 28px !important;
+  font-size: clamp(1rem, 2vw, 1.2rem) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 6px 16px rgba(0,0,0,.18);
+}
+.whatsapp-btn:hover { background-color: #128c7e !important; transform: translateY(-2px); }
+
+@keyframes whatsappPulse {
+  0%, 100% { box-shadow: 0 6px 18px rgba(0,0,0,.22), 0 0 0 0 rgba(37,211,102,.35); }
+  50% { box-shadow: 0 6px 18px rgba(0,0,0,.22), 0 0 0 12px rgba(37,211,102,0); }
 }
 
-/* Extra pequeñas pantallas (320px - 360px) */
+.category-title { scroll-margin-top: 80px; }
+.category-scroll { scroll-margin-top: 100px; }
+.smooth-scroll { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
 @media (max-width: 360px) {
-  html, body {
-    overflow-x: hidden;
-  }
-
-  .navbar-brand-title {
-    font-size: clamp(0.9rem, 2.5vw, 1.5rem);
-  }
-
-  .nav-link {
-    font-size: clamp(0.85rem, 2vw, 1rem) !important;
-  }
-
-  .btn-primary {
-    padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 30px) !important;
-    font-size: clamp(0.9rem, 2.5vw, 1rem) !important;
-    min-height: 44px !important;
-  }
+  html, body { overflow-x: hidden; }
+  .navbar-brand-title { font-size: clamp(.9rem, 2.5vw, 1.5rem); }
+  .navbar-brand-title img { width: 44px !important; height: 44px !important; }
+  .nav-link { font-size: clamp(.85rem, 2vw, 1rem) !important; }
+  .btn-primary { padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 30px) !important; font-size: clamp(.9rem, 2.5vw, 1rem) !important; min-height: 44px !important; }
 }
