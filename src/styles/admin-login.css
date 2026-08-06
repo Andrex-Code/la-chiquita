@@ -1,0 +1,72 @@
+.admin-password-field {
+  position: relative;
+}
+
+.admin-password-input {
+  padding-right: 104px;
+  letter-spacing: 0.02em;
+}
+
+.admin-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  min-height: 38px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 10px;
+  background: #f4e8dc;
+  color: var(--admin-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-password-toggle:hover,
+.admin-password-toggle:focus-visible {
+  background: #ead5c2;
+  outline: 3px solid rgba(214, 155, 91, 0.24);
+}
+
+.admin-password-hint {
+  color: var(--admin-muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 520px) {
+  .admin-login-shell {
+    padding: 14px;
+    align-items: start;
+    padding-top: max(24px, env(safe-area-inset-top));
+  }
+
+  .admin-login-card {
+    padding: 26px 20px;
+    border-radius: 22px;
+  }
+
+  .admin-login-brand {
+    align-items: flex-start;
+  }
+
+  .admin-login-brand h1 {
+    font-size: 1.65rem;
+  }
+
+  .admin-password-input {
+    min-height: 50px;
+    font-size: 16px;
+    padding-right: 98px;
+  }
+
+  .admin-password-toggle {
+    min-width: 82px;
+    min-height: 40px;
+  }
+}
