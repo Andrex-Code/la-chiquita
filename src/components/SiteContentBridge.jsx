@@ -1,19 +1,13 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { loadSiteContent } from '../lib/siteContent';
 
 const textTargets = {
   'hero.title': '.welcome-title',
   'hero.subtitle': '.welcome-subtitle',
-};
-
-const defaultAppearance = {
-  primary: '#6f3d24',
-  secondary: '#d69b5b',
-  background: '#f6efe7',
-  surface: '#fffaf4',
-  text: '#321808',
-  radius: '18',
+  'about.title': '.about-title, [data-cms="about-title"]',
+  'contact.title': '[data-cms="contact-title"]',
+  'contact.subtitle': '[data-cms="contact-subtitle"]',
 };
 
 export default function SiteContentBridge() {
@@ -26,41 +20,31 @@ export default function SiteContentBridge() {
     let timer;
 
     async function applyCmsContent() {
-      const { data, error } = await supabase
-        .from('site_content')
-        .select('section, content_key, value');
-
-      if (cancelled || error || !data) return;
-
-      const values = {};
-      data.forEach((item) => {
-        values[`${item.section}.${item.content_key}`] = item.value ?? '';
-      });
+      const values = await loadSiteContent({ force: true });
+      if (cancelled) return;
 
       Object.entries(textTargets).forEach(([key, selector]) => {
-        const element = document.querySelector(selector);
-        if (element && values[key]) element.textContent = values[key];
+        const value = values[key];
+        if (!value) return;
+        document.querySelectorAll(selector).forEach((element) => {
+          element.textContent = value;
+        });
       });
 
-      const appearance = {
-        primary: values['appearance.primary'] || defaultAppearance.primary,
-        secondary: values['appearance.secondary'] || defaultAppearance.secondary,
-        background: values['appearance.background'] || defaultAppearance.background,
-        surface: values['appearance.surface'] || defaultAppearance.surface,
-        text: values['appearance.text'] || defaultAppearance.text,
-        radius: values['appearance.radius'] || defaultAppearance.radius,
-      };
-
       const root = document.documentElement;
-      root.style.setProperty('--site-primary', appearance.primary);
-      root.style.setProperty('--site-secondary', appearance.secondary);
-      root.style.setProperty('--site-background', appearance.background);
-      root.style.setProperty('--site-surface', appearance.surface);
-      root.style.setProperty('--site-text', appearance.text);
-      root.style.setProperty('--site-radius', `${appearance.radius}px`);
+      root.style.setProperty('--site-primary', values['appearance.primary']);
+      root.style.setProperty('--site-secondary', values['appearance.secondary']);
+      root.style.setProperty('--site-background', values['appearance.background']);
+      root.style.setProperty('--site-surface', values['appearance.surface']);
+      root.style.setProperty('--site-text', values['appearance.text']);
+      root.style.setProperty('--site-radius', `${values['appearance.radius']}px`);
+
+      document.body.style.backgroundColor = values['appearance.background'];
+      document.body.style.color = values['appearance.text'];
+      window.dispatchEvent(new CustomEvent('site-content-loaded', { detail: values }));
     }
 
-    timer = window.setTimeout(applyCmsContent, 60);
+    timer = window.setTimeout(applyCmsContent, 50);
 
     return () => {
       cancelled = true;
